@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schutzz × Schunck — Brandschutz, neu definiert.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+<style>
+/* ── SCHUTZZ Design System Tokens ── */
+:root {
+  --primary:        #1C456B;
+  --secondary:      #F1F152;
+  --light:          #F6F1E8;
+  --muted:          #6E7B89;
+  --hairline:       #E1DDD4;
+  --surface-soft-from: #F7F8F9;
+  --surface-soft-to:   #EEF0F2;
+  --white:          #FFFFFF;
+  --black:          #0E1A26;
+  --font-display:   'Space Grotesk', system-ui, sans-serif;
+  --font-body:      'Inter', system-ui, sans-serif;
+  --font-mono:      'JetBrains Mono', ui-monospace, monospace;
+  --ease-out:       cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-base:       220ms;
+  --shadow-card:    0 14px 32px rgba(28,69,107,0.10);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--light);
+  color: var(--primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Floating brand strip ── */
+.brandstrip {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 22px 40px;
+  background: transparent;
+  pointer-events: none;
+}
+.brandstrip > * { pointer-events: auto; }
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--light);
+  padding: 8px 14px;
+  border: 1px solid var(--hairline);
+}
+.brand__logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  display: flex; align-items: center; gap: 6px;
+}
+.brand__shield {
+  width: 16px; height: 19px;
+  background: var(--primary);
+  clip-path: polygon(50% 0%, 100% 15%, 100% 70%, 50% 100%, 0% 70%, 0% 15%);
+  flex-shrink: 0;
+}
+.brand__name { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; }
+.brand__sep { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+.brand .schunck-mini {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  border: 1.5px solid var(--primary);
+  padding: 2px 8px;
+}
+
+.brandstrip__center {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  text-transform: uppercase;
+  background: var(--light);
+  padding: 8px 14px;
+  border: 1px solid var(--hairline);
+  text-align: center;
+}
+
+.pdf-btn {
+  justify-self: end;
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--secondary);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 12px 18px 12px 16px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+  transition: transform .22s var(--ease-out);
+  box-shadow: 0 8px 24px rgba(28,69,107,0.15);
+}
+.pdf-btn:hover { transform: translateX(2px); }
+.pdf-btn svg { width: 12px; height: 12px; }
+
+/* ── HERO — Split diagonal ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  background: var(--primary);
+  color: var(--white);
+  overflow: hidden;
+}
+.hero__left {
+  padding: 140px 80px 80px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  gap: 56px;
+  position: relative;
+  z-index: 2;
+}
+.hero__right {
+  position: relative;
+  background: var(--secondary);
+  color: var(--primary);
+  display: flex; align-items: stretch;
+  clip-path: polygon(80px 0, 100% 0, 100% 100%, 0 100%);
+  margin-left: -80px;
+}
+.hero__right-inner {
+  flex: 1;
+  padding: 140px 80px 80px 140px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  gap: 32px;
+}
+.hero__grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  display: flex; align-items: center; gap: 14px;
+}
+.hero__eyebrow::before {
+  content: ""; display: inline-block; width: 28px; height: 4px;
+  background: var(--secondary);
+}
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(56px, 8vw, 120px);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  color: var(--white);
+}
+.hero__title .yellow { color: var(--secondary); }
+.hero__title em {
+  font-style: normal;
+  position: relative;
+}
+.hero__title em::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 6%;
+  height: 8px; background: var(--secondary);
+  z-index: -1;
+}
+.hero__lede {
+  margin-top: 32px;
+  max-width: 50ch;
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.78);
+}
+.hero__bottom {
+  display: flex; flex-wrap: wrap; gap: 22px; align-items: center;
+}
+
+.cta-yellow {
+  display: inline-flex; align-items: center; gap: 28px;
+  background: var(--secondary);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding: 22px 28px;
+  text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 100%, 0 100%);
+  transition: transform .22s var(--ease-out);
+}
+.cta-yellow:hover { transform: translateX(3px); }
+.cta-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+}
+
+/* hero right — stats */
+.hero__r-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.hero__r-stack {
+  display: flex; flex-direction: column;
+  border-top: 1.5px solid var(--primary);
+}
+.hero__r-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  padding: 28px 0;
+  border-bottom: 1.5px solid var(--primary);
+}
+.hero__r-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--primary);
+}
+.hero__r-lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-align: right;
+  max-width: 16ch;
+}
+.hero__r-foot {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--primary);
+  text-transform: uppercase;
+  display: flex; justify-content: space-between;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero__right {
+    clip-path: none;
+    margin-left: 0;
+  }
+  .hero__left, .hero__right-inner {
+    padding: 80px 40px 60px;
+  }
+}
+
+/* ── Section frame ── */
+.section { padding-block: 140px; position: relative; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-inline: 56px; }
+@media (max-width: 700px) {
+  .section { padding-block: 80px; }
+  .wrap { padding-inline: 24px; }
+}
+
+/* ── Section headline pattern ── */
+.shead {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 2.4fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 80px;
+}
+@media (max-width: 900px) {
+  .shead { grid-template-columns: 1fr; gap: 32px; margin-bottom: 48px; }
+}
+.shead__sticker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+  border-top: 4px solid var(--secondary);
+  padding-top: 14px;
+}
+.shead__num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 56px;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  line-height: 1;
+  margin-top: 8px;
+}
+.shead__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.shead__lede {
+  margin-top: 24px;
+  font-size: 18px;
+  line-height: 1.55;
+  max-width: 56ch;
+  color: var(--primary);
+}
+
+/* ── Material section ── */
+.material-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  min-height: 520px;
+}
+@media (max-width: 800px) {
+  .material-panel { grid-template-columns: 1fr; }
+}
+.material-panel__text {
+  padding: 48px 56px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  gap: 28px;
+}
+.material-panel__text p { font-size: 16px; line-height: 1.65; }
+.material-panel__text p + p { margin-top: 16px; }
+.material-panel__pull {
+  margin-top: 24px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--primary);
+  border-top: 1px solid var(--hairline);
+  padding-top: 24px;
+}
+.material-panel__pull strong {
+  background: var(--secondary);
+  padding: 0 6px;
+  font-weight: 700;
+}
+.material-panel__img { min-height: 400px; }
+
+/* ── Image placeholder ── */
+.placeholder {
+  position: relative;
+  background:
+    repeating-linear-gradient(135deg, transparent 0, transparent 14px, rgba(28,69,107,0.05) 14px, rgba(28,69,107,0.05) 15px),
+    var(--surface-soft-from);
+  border: 1px solid var(--hairline);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  padding: 24px;
+}
+.placeholder::before, .placeholder::after {
+  content: ""; position: absolute; width: 14px; height: 14px;
+  border: 1px solid var(--primary); border-style: solid;
+}
+.placeholder::before { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+.placeholder::after { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
+.placeholder .ph-meta {
+  position: absolute; bottom: 10px; left: 10px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+.placeholder span { max-width: 30ch; line-height: 1.5; }
+
+/* ── Trade-Off — Bisher / Mit Schutzz ── */
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+@media (max-width: 700px) {
+  .compare { grid-template-columns: 1fr; }
+}
+.compare__col { padding: 32px 40px; }
+.compare__col--then { background: var(--surface-soft-from); border-right: 1px solid var(--hairline); }
+.compare__col--now { background: var(--primary); color: var(--white); }
+.compare__col-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex; align-items: center; gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+.compare__col--now .compare__col-title { color: rgba(255,255,255,0.6); border-bottom-color: rgba(255,255,255,0.2); }
+.compare__col-title .pip { width: 8px; height: 8px; background: var(--muted); display: inline-block; flex-shrink: 0; }
+.compare__col--now .compare__col-title .pip { background: var(--secondary); }
+.compare__list { list-style: none; }
+.compare__item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--hairline);
+  align-items: baseline;
+}
+.compare__col--now .compare__item { border-bottom-color: rgba(255,255,255,0.16); }
+.compare__item:last-child { border-bottom: 0; }
+.compare__attr {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.compare__col--now .compare__attr { color: rgba(255,255,255,0.6); }
+.compare__val {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(110,123,137,0.4);
+}
+.compare__col--now .compare__val {
+  color: var(--white);
+  text-decoration: none;
+}
+.compare__col--now .compare__val mark {
+  background: var(--secondary);
+  color: var(--primary);
+  padding: 0 6px;
+  font-weight: 700;
+}
+@media (max-width: 500px) {
+  .compare__item { grid-template-columns: 80px 1fr; gap: 16px; }
+  .compare__val { font-size: 18px; }
+}
+
+/* ── Eigenschaften — Sticky scroll story ── */
+.story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  position: relative;
+}
+@media (max-width: 900px) {
+  .story { grid-template-columns: 1fr; }
+  .story__sticky { display: none; }
+}
+.story__text { display: flex; flex-direction: column; gap: 0; }
+.story__step {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.story__step:first-child { padding-top: 0; }
+.story__step:last-child { border-bottom: 0; }
+.story__num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--secondary);
+  background: var(--primary);
+  padding: 6px 10px;
+  display: inline-block;
+  font-weight: 500;
+}
+.story__title {
+  margin-top: 22px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--primary);
+  text-wrap: balance;
+}
+.story__metric {
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-transform: uppercase;
+  border-left: 3px solid var(--secondary);
+  padding-left: 14px;
+}
+.story__body {
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--primary);
+}
+.story__sticky {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  height: calc(100vh - 140px);
+  max-height: 720px;
+  display: flex;
+}
+.story__visual {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.story__visual .placeholder {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity .5s var(--ease-out);
+}
+.story__visual .placeholder.is-active { opacity: 1; }
+
+/* ── Anwendungsfelder — cards ── */
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  .apps-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .apps-grid { grid-template-columns: 1fr; }
+}
+.app-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  display: flex; flex-direction: column;
+  cursor: pointer;
+  transition: box-shadow .26s var(--ease-out), transform .26s var(--ease-out);
+  overflow: hidden;
+}
+.app-card:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-3px);
+}
+.app-card__ribbon {
+  position: absolute;
+  top: 0; right: 0;
+  background: var(--secondary);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 8px 18px 8px 24px;
+  clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%);
+  z-index: 2;
+}
+.app-card__img { aspect-ratio: 4/3; border-bottom: 1px solid var(--hairline); }
+.app-card__body { padding: 24px 26px 28px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.app-card__cat {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.app-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--primary);
+  text-wrap: balance;
+}
+.app-card__body p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--primary);
+}
+.app-card__more {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 12px;
+  position: relative;
+}
+.app-card__more::after {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: -1px;
+  height: 4px; background: var(--secondary);
+  transition: right .28s var(--ease-out);
+}
+.app-card:hover .app-card__more::after { right: 0; }
+
+/* ── Partnership ── */
+.partner-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--surface-soft-from);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+@media (max-width: 800px) {
+  .partner-stage { grid-template-columns: 1fr; }
+}
+.partner-stage__col {
+  padding: 80px 64px;
+  display: flex; flex-direction: column; gap: 24px;
+  border-right: 1px solid var(--hairline);
+}
+.partner-stage__col:last-child { border-right: 0; }
+.partner-stage__col-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex; align-items: center; gap: 14px;
+}
+.partner-stage__col-eyebrow .pip { width: 8px; height: 8px; background: var(--secondary); flex-shrink: 0; }
+.partner-stage__col-logo {
+  display: flex; align-items: center; height: 36px;
+}
+.partner-stage__col-logo .logo-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  display: flex; align-items: center; gap: 8px;
+}
+.partner-stage__col-logo .logo-shield {
+  width: 20px; height: 24px;
+  background: var(--primary);
+  clip-path: polygon(50% 0%, 100% 15%, 100% 70%, 50% 100%, 0% 70%, 0% 15%);
+  flex-shrink: 0;
+}
+.schunck-badge {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.02em;
+  border: 1.5px solid var(--primary);
+  padding: 6px 14px;
+}
+.partner-stage__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.partner-stage__body { font-size: 15px; line-height: 1.65; max-width: 52ch; }
+.partner-stage__big {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--hairline);
+}
+.partner-stage__big > div { padding: 20px 0 4px; }
+.partner-stage__big-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -0.01em;
+  color: var(--primary);
+}
+.partner-stage__big-lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+}
+@media (max-width: 700px) {
+  .partner-stage__col { padding: 48px 32px; }
+  .partner-stage__name { font-size: 28px; }
+}
+
+/* ── Final initiative section ── */
+.final {
+  background: var(--primary);
+  color: var(--white);
+  padding-block: 140px;
+  position: relative;
+  overflow: hidden;
+}
+.final::before {
+  content: "";
+  position: absolute;
+  top: -160px; right: -160px;
+  width: 560px; height: 560px;
+  background: var(--secondary);
+  transform: rotate(45deg);
+  opacity: 0.08;
+}
+.final .shead__title { color: var(--white); }
+.final .shead__lede { color: rgba(255,255,255,0.78); }
+.final .shead__sticker { color: rgba(255,255,255,0.6); border-top-color: var(--secondary); }
+.final .shead__num { color: var(--secondary); }
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  margin-top: 48px;
+}
+@media (max-width: 900px) {
+  .benefits { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .benefits { grid-template-columns: 1fr; }
+}
+.benefit {
+  padding: 36px 28px;
+  border-right: 1px dashed rgba(255,255,255,0.2);
+  display: flex; flex-direction: column; gap: 18px;
+  min-height: 240px;
+}
+.benefit:last-child { border-right: 0; }
+.benefit__num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--secondary);
+}
+.benefit__txt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  color: var(--white);
+  text-wrap: balance;
+}
+
+.final__cta-bar {
+  margin-top: 56px;
+  display: flex; flex-wrap: wrap; gap: 32px; align-items: center;
+}
+.final__cta-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  max-width: 32ch;
+}
+
+/* ── Footer ── */
+.foot { padding: 28px 0; border-top: 1px solid var(--hairline); }
+.foot__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: 56px;
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Print A4 ── */
+@page { size: A4 portrait; margin: 14mm; }
+@media print {
+  html, body { background: #fff; overflow: visible; }
+  .brandstrip { position: static; padding: 0 0 8pt; pointer-events: auto; background: #fff; }
+  .brand, .brandstrip__center { background: transparent; border: 0; padding: 0; }
+  .pdf-btn { display: none !important; }
+  .hero { min-height: 0; grid-template-columns: 1.3fr 1fr; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .hero__left { padding: 14pt 18pt; gap: 14pt; }
+  .hero__right { clip-path: none; margin-left: 0; }
+  .hero__right-inner { padding: 14pt 18pt; gap: 14pt; }
+  .hero__title { font-size: 36pt !important; }
+  .hero__lede { font-size: 11pt; max-width: 44ch; margin-top: 10pt; }
+  .hero__r-num { font-size: 28pt; }
+  .hero__r-lbl { font-size: 8pt; }
+  .section { padding: 18pt 0; page-break-inside: avoid; }
+  .wrap { padding-inline: 0; max-width: 100%; }
+  .shead { grid-template-columns: 90pt 1fr; gap: 18pt; margin-bottom: 16pt; }
+  .shead__title { font-size: 20pt !important; }
+  .shead__num { font-size: 24pt; }
+  .shead__lede { font-size: 10pt; }
+  .material-panel { min-height: 0; grid-template-columns: 1fr 1fr; }
+  .material-panel__text { padding: 14pt; }
+  .material-panel__text p { font-size: 9.5pt; }
+  .material-panel__pull { font-size: 13pt; padding-top: 10pt; margin-top: 10pt; }
+  .material-panel__img { min-height: 140pt; }
+  .compare { grid-template-columns: 1fr 1fr; }
+  .compare__col { padding: 12pt 14pt; }
+  .compare__col--now { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .compare__val { font-size: 12pt; }
+  .compare__attr { font-size: 8pt; }
+  .compare__item { padding: 8pt 0; grid-template-columns: 70pt 1fr; gap: 12pt; }
+  .story { grid-template-columns: 1fr; gap: 0; }
+  .story__sticky { display: none; }
+  .story__step { padding: 10pt 0; border-bottom: 0.5pt solid var(--hairline); page-break-inside: avoid; }
+  .story__title { font-size: 14pt; }
+  .story__body { font-size: 9.5pt; }
+  .apps-grid { grid-template-columns: repeat(3, 1fr); gap: 8pt; }
+  .app-card { page-break-inside: avoid; }
+  .app-card__body { padding: 10pt 12pt; gap: 8pt; }
+  .app-card__title { font-size: 11pt; }
+  .app-card__body p { font-size: 9pt; }
+  .app-card__ribbon { font-size: 7pt; padding: 5pt 12pt 5pt 16pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .partner-stage { background: #fff; grid-template-columns: 1fr 1fr; }
+  .partner-stage__col { padding: 14pt; }
+  .partner-stage__name { font-size: 18pt; }
+  .partner-stage__body { font-size: 9.5pt; }
+  .partner-stage__big-num { font-size: 16pt; }
+  .final { padding: 18pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; page-break-before: always; }
+  .final::before { display: none; }
+  .benefits { grid-template-columns: repeat(5, 1fr); margin-top: 14pt; }
+  .benefit { min-height: 0; padding: 10pt 8pt; }
+  .benefit__txt { font-size: 9.5pt; }
+  .foot__inner { padding-inline: 0; font-size: 7pt; }
+  .cta-yellow { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  * { box-shadow: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Floating brand strip -->
+<header class="brandstrip">
+  <div class="brand">
+    <div class="brand__logo">
+      <div class="brand__shield"></div>
+      SCHUTZZ
+    </div>
+    <span class="brand__sep">×</span>
+    <span class="schunck-mini">SCHUNCK</span>
+  </div>
+  <div class="brandstrip__center">Innovationsinitiative · 2026</div>
+  <button class="pdf-btn" onclick="window.print()" type="button">
+    <span>Als PDF · A4</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__grid-bg"></div>
+  <div class="hero__left">
+    <div>
+      <div class="hero__eyebrow">Exklusive Innovationsinitiative · Schunck Group</div>
+      <h1 class="hero__title">
+        Brandschutz —<br>
+        ohne <em>Trade-Off</em>.<br>
+        <span class="yellow">Erstmals.</span>
+      </h1>
+      <p class="hero__lede">
+        Die Schutzz GmbH hat eine Materialplattform entwickelt, die einen jahrzehnte­langen Trade-Off der Industrie löst: maximaler Brandschutz ohne Kompromisse bei Mechanik, Chemikalien­beständigkeit oder Verarbeitbarkeit. Die Schunck Group gibt ausgewählten Kunden als erste Zugang.
+      </p>
+    </div>
+    <div class="hero__bottom">
+      <a href="#initiative" class="cta-yellow"><span>Innovationspartner werden</span><span>→</span></a>
+      <span class="cta-meta">Begrenzte Plätze · Direkt­ansprache</span>
+    </div>
+  </div>
+
+  <div class="hero__right">
+    <div class="hero__right-inner">
+      <div class="hero__r-eyebrow">Die Plattform — in Zahlen</div>
+      <div class="hero__r-stack">
+        <div class="hero__r-row">
+          <div class="hero__r-num">UL 94 V0</div>
+          <div class="hero__r-lbl">Höchste Brandschutz­klasse</div>
+        </div>
+        <div class="hero__r-row">
+          <div class="hero__r-num">500%</div>
+          <div class="hero__r-lbl">Dehnung · DIN EN ISO 37</div>
+        </div>
+        <div class="hero__r-row">
+          <div class="hero__r-num">20 MPa</div>
+          <div class="hero__r-lbl">Zugfestigkeit</div>
+        </div>
+        <div class="hero__r-row">
+          <div class="hero__r-num">&lt;24 h</div>
+          <div class="hero__r-lbl">Aushärtung industriell belastbar</div>
+        </div>
+      </div>
+      <div class="hero__r-foot">
+        <span>Polyurea-Hybrid</span>
+        <span>Made in Germany</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 Materialplattform -->
+<section class="section" id="material">
+  <div class="wrap">
+    <div class="shead">
+      <div class="shead__sticker">
+        Section
+        <span class="shead__num">01</span>
+        Materialplattform
+      </div>
+      <div>
+        <h2 class="shead__title">Polyurea —<br>neu interpretiert.</h2>
+        <p class="shead__lede">Eine proprietäre Hybrid-Plattform, die einen jahrzehntelangen Konflikt der Industrie auflöst.</p>
+      </div>
+    </div>
+
+    <div class="material-panel">
+      <div class="material-panel__text">
+        <div>
+          <p>Polyurea ist als Hochleistungs­beschichtung seit Jahren etabliert: schnelle Aushärtung, exzellente Mechanik, hohe Chemikalien­beständigkeit. Bisher galt jedoch ein klarer Konflikt — wer Brandschutz wollte, verlor mechanische Eigenschaften.</p>
+          <p>Schutzz hat dieses Problem grundlegend gelöst. Unsere proprietäre Polyurea-Hybrid-Plattform erreicht <strong>UL 94 V0</strong> mit signifikant geringerem Feststoffanteil — Verarbeitbarkeit und mechanische Eigenschaften bleiben vollständig erhalten.</p>
+        </div>
+        <div class="material-panel__pull">
+          Das ist kein Kompromiss. Das ist eine <strong>neue Materialklasse.</strong>
+        </div>
+      </div>
+      <div class="placeholder material-panel__img">
+        <span>Platzhalter · Querschnitt der<br>Polyurea-Hybrid-Schicht</span>
+        <span class="ph-meta">IMG_01 · 1080×1350</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 Trade-Off -->
+<section class="section" id="tradeoff" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="shead">
+      <div class="shead__sticker">
+        Section
+        <span class="shead__num">02</span>
+        Trade-Off
+      </div>
+      <div>
+        <h2 class="shead__title">Was sich verändert —<br>der Trade-Off, der keiner mehr ist.</h2>
+        <p class="shead__lede">Vier Eigenschaften, die bisher gegeneinander standen. In einem System vereint, normkonform und industriell belastbar.</p>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="compare__col compare__col--then">
+        <div class="compare__col-title"><span class="pip"></span>Bisher</div>
+        <ul class="compare__list">
+          <li class="compare__item">
+            <div class="compare__attr">Mechanik</div>
+            <div class="compare__val">Verlust bei Brandschutz</div>
+          </li>
+          <li class="compare__item">
+            <div class="compare__attr">Brandschutz</div>
+            <div class="compare__val">Nur mit Einbußen</div>
+          </li>
+          <li class="compare__item">
+            <div class="compare__attr">Verarbeitung</div>
+            <div class="compare__val">Klassisch starr</div>
+          </li>
+          <li class="compare__item">
+            <div class="compare__attr">Chemikalien</div>
+            <div class="compare__val">Tradeoff unvermeidbar</div>
+          </li>
+        </ul>
+      </div>
+      <div class="compare__col compare__col--now">
+        <div class="compare__col-title"><span class="pip"></span>Mit Schutzz</div>
+        <ul class="compare__list">
+          <li class="compare__item">
+            <div class="compare__attr">Mechanik</div>
+            <div class="compare__val"><mark>500 %</mark> Dehnung · 20 MPa</div>
+          </li>
+          <li class="compare__item">
+            <div class="compare__attr">Brandschutz</div>
+            <div class="compare__val"><mark>UL 94 V0</mark> in einem System</div>
+          </li>
+          <li class="compare__item">
+            <div class="compare__attr">Verarbeitung</div>
+            <div class="compare__val">Schnelle Aushärtung, flexibel</div>
+          </li>
+          <li class="compare__item">
+            <div class="compare__attr">Chemikalien</div>
+            <div class="compare__val">Dauerhaft <mark>öl-</mark> &amp; <mark>laugen­beständig</mark></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 Eigenschaften — sticky scroll story -->
+<section class="section" id="eigenschaften" style="background: linear-gradient(180deg, #F7F8F9 0%, #EEF0F2 100%);">
+  <div class="wrap">
+    <div class="shead">
+      <div class="shead__sticker">
+        Section
+        <span class="shead__num">03</span>
+        Eigenschaften
+      </div>
+      <div>
+        <h2 class="shead__title">Eine Plattform.<br>Sechs Kernkompetenzen.</h2>
+        <p class="shead__lede">Alle Werte nach internationalen Normen geprüft und dokumentiert — für Bauherren, Sachverständige und Versicherer gleichermaßen belastbar.</p>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story__text" id="storyText">
+        <div class="story__step" data-step="0">
+          <span class="story__num">01</span>
+          <h3 class="story__title">Brandschutz bis UL 94 V0.</h3>
+          <div class="story__metric">UL 94 V0 · proprietäre Schutzz-Formulierung</div>
+          <p class="story__body">Höchste Klassifizierung — ohne Kompromisse bei mechanischer Leistung oder Verarbeitbarkeit. Erstmalig in dieser Kombination durch die proprietäre Schutzz-Formulierung erreichbar.</p>
+        </div>
+        <div class="story__step" data-step="1">
+          <span class="story__num">02</span>
+          <h3 class="story__title">Mechanische Beständigkeit.</h3>
+          <div class="story__metric">500 % Dehnung · 20 MPa · 30–40 mg Abrieb</div>
+          <p class="story__body">DIN EN ISO 37 · ASTM D4060. Extrem hohe Elastizität kombiniert mit Zugfestigkeit — hält Vibration, Schlag und Dauerbelastung stand.</p>
+        </div>
+        <div class="story__step" data-step="2">
+          <span class="story__num">03</span>
+          <h3 class="story__title">Chemikalien­beständigkeit.</h3>
+          <div class="story__metric">Laugen · Mineralöl · WHG-relevant</div>
+          <p class="story__body">Sehr gute Beständigkeit gegen Laugen; Spezialformulierungen halten dauerhafter Immersion in Mineralöl stand — relevant für Anforderungen aus dem WHG.</p>
+        </div>
+        <div class="story__step" data-step="3">
+          <span class="story__num">04</span>
+          <h3 class="story__title">Schnelle Aushärtung.</h3>
+          <div class="story__metric">In Stunden belastbar</div>
+          <p class="story__body">Minimale Stillstandzeiten bei der Applikation. Industrieböden und Beschichtungen sind in Stunden belastbar — kein langer Produktionsstopp.</p>
+        </div>
+        <div class="story__step" data-step="4">
+          <span class="story__num">05</span>
+          <h3 class="story__title">Maßgeschneiderte Entwicklung.</h3>
+          <div class="story__metric">Co-Engineering mit dem Kunden</div>
+          <p class="story__body">Die Plattform ist keine Standardlösung vom Regal. Schutzz optimiert Formulierungen gemeinsam mit dem Kunden für den konkreten Anwendungsfall.</p>
+        </div>
+        <div class="story__step" data-step="5">
+          <span class="story__num">06</span>
+          <h3 class="story__title">Dokumentierter Nachweis.</h3>
+          <div class="story__metric">DIN EN ISO · ASTM · UL 94</div>
+          <p class="story__body">Alle Eigenschaften nach anerkannten Normen geprüft. Versicherungs­relevante Dokumentation für Sachverständige und Underwriter verfügbar.</p>
+        </div>
+      </div>
+      <div class="story__sticky">
+        <div class="story__visual" id="storyVisual">
+          <div class="placeholder is-active" data-vis="0"><span>Brandschutzprüfung · UL 94<br>Vertikale Brennprobe</span><span class="ph-meta">VIS_01</span></div>
+          <div class="placeholder" data-vis="1"><span>Zugfestigkeitsprüfung<br>500 % Dehnung im Versuch</span><span class="ph-meta">VIS_02</span></div>
+          <div class="placeholder" data-vis="2"><span>Chemikalien-Immersionstest<br>Mineralöl · Laugen</span><span class="ph-meta">VIS_03</span></div>
+          <div class="placeholder" data-vis="3"><span>Applikation Industrieboden<br>Aushärtung in Stunden</span><span class="ph-meta">VIS_04</span></div>
+          <div class="placeholder" data-vis="4"><span>Co-Engineering<br>im Schutzz-Labor</span><span class="ph-meta">VIS_05</span></div>
+          <div class="placeholder" data-vis="5"><span>Prüfberichte &amp; Zertifikate<br>DIN · ASTM · UL</span><span class="ph-meta">VIS_06</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 Anwendungsfelder -->
+<section class="section" id="anwendungen">
+  <div class="wrap">
+    <div class="shead">
+      <div class="shead__sticker">
+        Section
+        <span class="shead__num">04</span>
+        Anwendungsfelder
+      </div>
+      <div>
+        <h2 class="shead__title">Wo die Plattform den<br>Unterschied macht.</h2>
+        <p class="shead__lede">Industriell relevante Schutzanwendungen — vom Bau über die Industrie bis zur Logistik. Jede davon reduziert nachweisbar Risiken, die Versicherer kennen.</p>
+      </div>
+    </div>
+
+    <div class="apps-grid">
+      <article class="app-card">
+        <div class="app-card__ribbon">Bau</div>
+        <div class="placeholder app-card__img"><span>Wand mit Schutzz-Schicht F30 / F60 / F90</span><span class="ph-meta">IMG_04A</span></div>
+        <div class="app-card__body">
+          <div class="app-card__cat">Wandnachrüstung</div>
+          <h3 class="app-card__title">Brandschutz­klasse von Wänden nachträglich erhöhen.</h3>
+          <p>Wände, die F30/F60/F90 nicht erreichen, werden mit dünnschichtiger Beschichtung nachgerüstet — ohne tragende Strukturen anzutasten.</p>
+          <div class="app-card__more"><span>Detail</span><span>→</span></div>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <div class="app-card__ribbon">Bau</div>
+        <div class="placeholder app-card__img"><span>PV-Anlage auf Bitumendach</span><span class="ph-meta">IMG_04B</span></div>
+        <div class="app-card__body">
+          <div class="app-card__cat">PV / Flachdach</div>
+          <h3 class="app-card__title">Brandschutz unter PV- und Elektroanlagen.</h3>
+          <p>Polyurea-Hybrid wirkt als rissüber­brückende Abdichtung und gleichzeitig als UL 94 V0-Brandschutz­barriere — entscheidend für Sach- und Feuerversicherer.</p>
+          <div class="app-card__more"><span>Detail</span><span>→</span></div>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <div class="app-card__ribbon">Bau</div>
+        <div class="placeholder app-card__img"><span>Industrieboden / Staplerverkehr</span><span class="ph-meta">IMG_04C</span></div>
+        <div class="app-card__body">
+          <div class="app-card__cat">Industrieboden</div>
+          <h3 class="app-card__title">In Stunden begehbar, hoch belastbar, chemisch beständig.</h3>
+          <p>Polyurea-Hybrid-Böden senken Stillstand- und Reklamations­risiken in Werkstätten, Lagern und Tiefgaragen deutlich.</p>
+          <div class="app-card__more"><span>Detail</span><span>→</span></div>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <div class="app-card__ribbon">Industrie</div>
+        <div class="placeholder app-card__img"><span>Tankauskleidung Säuren / Laugen</span><span class="ph-meta">IMG_04D</span></div>
+        <div class="app-card__body">
+          <div class="app-card__cat">Tank / Auffangwanne</div>
+          <h3 class="app-card__title">Dichte Innenauskleidungen für aggressive Medien.</h3>
+          <p>Schutzz-Beschichtungen schützen Boden und Grundwasser — relevant für WHG- und Betriebs­haftpflicht-Anforderungen.</p>
+          <div class="app-card__more"><span>Detail</span><span>→</span></div>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <div class="app-card__ribbon">Industrie</div>
+        <div class="placeholder app-card__img"><span>Kabeltrasse / Schaltschrank</span><span class="ph-meta">IMG_04E</span></div>
+        <div class="app-card__body">
+          <div class="app-card__cat">Kabel / Aggregate</div>
+          <h3 class="app-card__title">Mechanischer und thermischer Schutz in einer Schicht.</h3>
+          <p>UL 94 V0-Systeme von Schutzz schützen Kabel­trassen, Schaltschränke und Maschinen­verkleidungen ohne typische Einbußen.</p>
+          <div class="app-card__more"><span>Detail</span><span>→</span></div>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <div class="app-card__ribbon">Logistik</div>
+        <div class="placeholder app-card__img"><span>Sattelauflieger / Container Innenseite</span><span class="ph-meta">IMG_04F</span></div>
+        <div class="app-card__body">
+          <div class="app-card__cat">Lkw / Container</div>
+          <h3 class="app-card__title">Innenauskleidung gegen Abrieb und chemischen Angriff.</h3>
+          <p>Sattelauflieger und Container für Schüttgut oder Gefahrgut: Schadenquoten in Transport- und Verkehrshaftung sinken nachweisbar.</p>
+          <div class="app-card__more"><span>Detail</span><span>→</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 05 Partnerschaft -->
+<section id="partners">
+  <div class="wrap" style="padding-top: 100px; padding-bottom: 32px;">
+    <div class="shead">
+      <div class="shead__sticker">
+        Section
+        <span class="shead__num">05</span>
+        Partnerschaft
+      </div>
+      <div>
+        <h2 class="shead__title">Schutzz &amp; Schunck.<br>Technologie trifft Markt.</h2>
+        <p class="shead__lede">Warum bringt ein führender Versicherungs­makler eine neue Materialtechnologie zu seinen Kunden? Weil Brandschutz über Versicherbarkeit, Prämien und operative Sicherheit entscheidet.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="partner-stage">
+    <div class="partner-stage__col">
+      <div class="partner-stage__col-eyebrow"><span class="pip"></span>Technologie · Material</div>
+      <div class="partner-stage__col-logo">
+        <div class="logo-text">
+          <div class="logo-shield"></div>
+          SCHUTZZ GmbH
+        </div>
+      </div>
+      <div class="partner-stage__name">Schutzz GmbH</div>
+      <p class="partner-stage__body">Deutsches Technologie­unternehmen mit proprietärer Material­plattform auf Basis von Polyurea und Polyurea-Hybrid. Entwickelt Beschichtungen, Dichtungen und Auskleidungen, die bisher für unmöglich gehaltene Eigenschafts­kombinationen erreichen — entwickelt auf konkrete Industrie­anforderungen hin, mit normkonformem Nachweis.</p>
+      <div class="partner-stage__big">
+        <div>
+          <div class="partner-stage__big-num">UL 94 V0</div>
+          <div class="partner-stage__big-lbl">Brandschutz­klasse</div>
+        </div>
+        <div>
+          <div class="partner-stage__big-num">DE</div>
+          <div class="partner-stage__big-lbl">Made in Germany</div>
+        </div>
+      </div>
+    </div>
+    <div class="partner-stage__col">
+      <div class="partner-stage__col-eyebrow"><span class="pip"></span>Markt · Versicherung</div>
+      <div class="partner-stage__col-logo"><span class="schunck-badge">SCHUNCK</span></div>
+      <div class="partner-stage__name">Schunck Group</div>
+      <p class="partner-stage__body">Führender Industrie­versicherungs­makler Deutschlands, Teil der Ecclesia Gruppe. Seit über 100 Jahren Partner für Logistik, Transport, Industrie, Immobilien und Bau — mit tiefem Verständnis dafür, was operative Risiken für Versicherbarkeit und Prämien bedeuten.</p>
+      <div class="partner-stage__big">
+        <div>
+          <div class="partner-stage__big-num">100+</div>
+          <div class="partner-stage__big-lbl">Jahre Industrie­makler</div>
+        </div>
+        <div>
+          <div class="partner-stage__big-num">Ecclesia</div>
+          <div class="partner-stage__big-lbl">Gruppen­zugehörigkeit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 Initiative -->
+<section class="final" id="initiative">
+  <div class="wrap">
+    <div class="shead">
+      <div class="shead__sticker">
+        Section
+        <span class="shead__num">06</span>
+        Initiative
+      </div>
+      <div>
+        <h2 class="shead__title">Gemeinsam entwickeln,<br>was der Markt noch nicht kennt.</h2>
+        <p class="shead__lede">Die Schunck Group sucht eine begrenzte Anzahl von Unternehmen, die mit Schutzz industrie-spezifische Brandschutz­lösungen entwickeln wollen. Im Mittelpunkt: Ihr konkretes Anwendungswissen — wo fehlen Lösungen, wo werden Kompromisse hingenommen, die eigentlich nicht akzeptabel sind?</p>
+      </div>
+    </div>
+
+    <div class="benefits">
+      <div class="benefit">
+        <div class="benefit__num">A</div>
+        <div class="benefit__txt">Exklusiver Erstzugang zur Materialplattform.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__num">B</div>
+        <div class="benefit__txt">Lösung zugeschnitten auf Ihren Anwendungsfall.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__num">C</div>
+        <div class="benefit__txt">Normkonformer, versicherungs­relevanter Nachweis.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__num">D</div>
+        <div class="benefit__txt">Begleitung durch Schunck-Risk-Expertise.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__num">E</div>
+        <div class="benefit__txt">Positionierung als Innovations­vorreiter Ihrer Branche.</div>
+      </div>
+    </div>
+
+    <div class="final__cta-bar">
+      <a href="#" class="cta-yellow"><span>Innovationspartner werden</span><span>→</span></a>
+      <span class="final__cta-meta">Begrenzte Anzahl Plätze · Direkt­ansprache durch Schunck Group</span>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot__inner">
+    <div>© 2026 Schutzz GmbH · Schunck Group</div>
+    <div>Vertraulich · Nur für Empfänger</div>
+  </div>
+</footer>
+
+<script>
+// Sticky scroll story — swap visual when a step enters view
+(() => {
+  const steps = document.querySelectorAll('#storyText .story__step');
+  const visuals = document.querySelectorAll('#storyVisual .placeholder');
+  if (!steps.length || !visuals.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const i = +e.target.dataset.step;
+        visuals.forEach(v => v.classList.toggle('is-active', +v.dataset.vis === i));
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  steps.forEach(s => obs.observe(s));
+})();
+</script>
+</body>
+</html>
