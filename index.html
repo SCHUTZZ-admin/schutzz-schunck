@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schunck × Schutzz · Drei Landingpage-Entwürfe</title>
+<link rel="stylesheet" href="project/shared/colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: #f0eee9; font-family: var(--font-body); }
+  .dc-overlay-note {
+    position: fixed; top: 16px; right: 80px; z-index: 70;
+    display: flex; align-items: center; gap: 14px;
+    background: var(--primary); color: var(--secondary);
+    padding: 10px 16px;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    pointer-events: none;
+  }
+  .dc-overlay-note .pip { width: 8px; height: 8px; background: var(--secondary); }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="project/design-canvas.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<div class="dc-overlay-note">
+  <span class="pip"></span>
+  <span>Schunck × Schutzz · 3 Entwürfe · Klick → Fokus</span>
+</div>
+
+<script type="text/babel" data-presets="env,react">
+const { DesignCanvas, DCSection, DCArtboard, DCPostIt } = window;
+
+const Entwurf = ({ src }) => (
+  <iframe
+    src={src}
+    style={{
+      width: '100%', height: '100%', border: 0, display: 'block',
+      background: '#F6F1E8',
+    }}
+    loading="lazy"
+  />
+);
+
+const W = 1440;
+const H = 1800;
+
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection
+        id="entwuerfe"
+        title="Schunck × Schutzz · Landingpage-Entwürfe"
+        subtitle="Drei Richtungen auf Basis des SCHUTZZ Design-Systems · A4-PDF-Export pro Entwurf via Button oben rechts">
+
+        <DCArtboard id="e1" label="01 · Editorial · Technisches Dossier" width={W} height={H}>
+          <Entwurf src="project/entwurf-1-dossier/index.html" />
+        </DCArtboard>
+
+        <DCArtboard id="e2" label="02 · Modular Grid · Anwendungs-Slider" width={W} height={H}>
+          <Entwurf src="project/entwurf-2-modular/index.html" />
+        </DCArtboard>
+
+        <DCArtboard id="e3" label="03 · Bold Split · Sticky-Scroll" width={W} height={H}>
+          <Entwurf src="project/entwurf-3-split/index.html" />
+        </DCArtboard>
+
+        <DCPostIt top={-40} left={W * 3 + 220} width={240} rotate={-3}>
+          Tipp: Klick auf ein Entwurfs-Label öffnet ihn fullscreen.
+          ←/→ wechselt zwischen den drei Varianten, Esc verlässt den Fokus.
+          PDF-Download über den gelben Button oben rechts in jedem Entwurf.
+        </DCPostIt>
+
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
